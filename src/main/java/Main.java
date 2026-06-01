@@ -13,15 +13,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        // Cria as views e scenes primeiro para garantir que sceneCategoria
-        // não seja nula quando passada ao MenuController
         MenuView menuView = new MenuView();
         sceneMenu = new Scene(menuView, 300, 250);
 
         CategoriaView view = new CategoriaView();
-        sceneCategoria = new Scene(view, 300, 250);
+        sceneCategoria = new Scene(view, 980, 360);
 
-        // Agora que sceneCategoria está inicializada, passe-a ao controller
         MenuController menuController = new MenuController(menuView, primaryStage, sceneCategoria);
         CategoriaController controller = new CategoriaController(view, primaryStage, sceneMenu);
 

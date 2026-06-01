@@ -1,11 +1,19 @@
 package model;
 
-public class Categoria {
+import java.io.Serializable;
+
+public class Categoria implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private static int nextId = 1;
+
+    private int id;
     private String nome;
     private String descricao;
     private String classificacao;
 
     public Categoria(String nome, String descricao, String classificacao) {
+        this.id = nextId++;
         this.nome = nome;
         this.descricao = descricao;
         this.classificacao = classificacao;
@@ -33,5 +41,21 @@ public class Categoria {
 
     public void setClassificacao(String classificacao) {
         this.classificacao = classificacao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public static void setNextId(int nextId) {
+        if (nextId > Categoria.nextId) {
+            Categoria.nextId = nextId;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{id=" + id + ", nome='" + nome + '\'' + ", descricao='" + descricao + '\''
+                + ", classificacao='" + classificacao + '\'' + '}';
     }
 }
