@@ -22,11 +22,14 @@ public class Main extends Application {
         sceneCategoria = new Scene(viewCategoria, 980, 360);
 
         EventoView viewEvento = new EventoView();
-        sceneEvento = new Scene(viewEvento,  980, 360);
+        sceneEvento = new Scene(viewEvento, 980, 360);
 
         MenuController menuController = new MenuController(menuView, primaryStage, sceneCategoria, sceneEvento);
         CategoriaController controllerCategoria = new CategoriaController(viewCategoria, primaryStage, sceneMenu);
         EventoController controllerEvento = new EventoController(viewEvento, primaryStage, sceneMenu);
+
+        // Configura o MenuController com o EventoController para recarregar categorias
+        menuController.setEventoController(controllerEvento);
 
         primaryStage.setTitle("Exemplo MVC JavaFX POO");
         primaryStage.setScene(sceneMenu);

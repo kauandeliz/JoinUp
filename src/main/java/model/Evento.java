@@ -11,12 +11,14 @@ public class Evento implements Serializable {
     private String nome;
     private String data;
     private String endereco;
+    private int idCategoria;
 
-    public Evento(String nome, String data, String endereco) {
+    public Evento(String nome, String data, String endereco, int idCategoria) {
         this.id = nextId++;
         this.nome = nome;
         this.data = data;
         this.endereco = endereco;
+        this.idCategoria = idCategoria;
     }
 
     public int getId() {
@@ -51,7 +53,15 @@ public class Evento implements Serializable {
         this.endereco = endereco;
     }
 
-    public static void setNextId(int nextId){
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public static void setNextId(int nextId) {
         if (nextId > Evento.nextId) {
             Evento.nextId = nextId;
         }
@@ -60,8 +70,6 @@ public class Evento implements Serializable {
     @Override
     public String toString() {
         return "Evento{id=" + id + ", nome='" + nome + '\'' + ", data='" + data + '\''
-                + ", endereco='" + endereco + '\'' + '}';
+                + ", endereco='" + endereco + '\'' + ", idCategoria=" + idCategoria + '}';
     }
 }
-
-

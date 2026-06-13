@@ -10,8 +10,9 @@ public class MenuController {
     private Stage primaryStage;
     private Scene sceneCategoria;
     private Scene sceneEvento;
+    private EventoController eventoController;
 
-    public MenuController(MenuView view, Stage primaryStage, Scene sceneCategoria, Scene sceneEvento){
+    public MenuController(MenuView view, Stage primaryStage, Scene sceneCategoria, Scene sceneEvento) {
         this.view = view;
         this.primaryStage = primaryStage;
         this.sceneCategoria = sceneCategoria;
@@ -21,11 +22,19 @@ public class MenuController {
         this.view.getBotaoEvento().setOnAction(event -> irParaEvento());
     }
 
-    private void irParaCategoria(){
+    public void setEventoController(EventoController eventoController) {
+        this.eventoController = eventoController;
+    }
+
+    private void irParaCategoria() {
         primaryStage.setScene(sceneCategoria);
     }
 
-    private void irParaEvento(){
+    private void irParaEvento() {
+        // Recarrega as categorias antes de ir para a tela de eventos
+        if (eventoController != null) {
+            eventoController.recarregarCategorias();
+        }
         primaryStage.setScene(sceneEvento);
     }
 }

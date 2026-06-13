@@ -11,26 +11,24 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.Categoria;
 import java.util.List;
 
 public class CategoriaView extends GridPane {
 
+    private Label labelIdSelecionada;
     private TextField campoNome;
     private TextField campoDescricao;
     private TextField campoClassificacao;
     private Button botaoSalvar;
+    private Button botaoExcluir;
+    private Button botaoLimpar;
 
     private TableView<Categoria> tabelaCategorias;
     private ObservableList<Categoria> tabelaData;
 
-    private Label labelIdSelecionada;
-    private TextField campoNomeSelecionado;
-    private TextField campoDescricaoSelecionada;
-    private TextField campoClassificacaoSelecionada;
-    private Button botaoAtualizar;
-    private Button botaoExcluir;
     private Button botaoVoltar;
 
     public CategoriaView() {
@@ -39,38 +37,52 @@ public class CategoriaView extends GridPane {
         this.setVgap(10);
         this.setPadding(new Insets(20, 20, 20, 20));
 
-        construirFormularioCadastro();
+        construirFormularioUnificado();
         construirTabelaConsulta();
-        construirPainelEdicao();
     }
 
-    private void construirFormularioCadastro() {
-        VBox colunaCadastro = new VBox(10);
-        colunaCadastro.setAlignment(Pos.TOP_LEFT);
+    private void construirFormularioUnificado() {
+        VBox colunaFormulario = new VBox(10);
+        colunaFormulario.setAlignment(Pos.TOP_LEFT);
 
-        Label tituloCadastro = new Label("Cadastro de categoria");
+        Label titulo = new Label("Gestão de categorias");
+        labelIdSelecionada = new Label("ID: nenhum selecionado");
+
         campoNome = new TextField();
+        campoNome.setPromptText("Digite o nome");
         campoDescricao = new TextField();
+        campoDescricao.setPromptText("Digite a descrição");
         campoClassificacao = new TextField();
+        campoClassificacao.setPromptText("Digite a classificação");
+
         botaoSalvar = new Button("Salvar");
+        botaoExcluir = new Button("Excluir");
+        botaoExcluir.setStyle("-fx-text-fill: white; -fx-background-color: #d32f2f;");
+        botaoExcluir.setDisable(true);
+
+        botaoLimpar = new Button("Limpar");
         botaoVoltar = new Button("Voltar");
 
-        colunaCadastro.getChildren().addAll(
-                tituloCadastro,
+        HBox painelBotoes = new HBox(10);
+        painelBotoes.setAlignment(Pos.CENTER_LEFT);
+        painelBotoes.getChildren().addAll(botaoSalvar, botaoExcluir, botaoLimpar, botaoVoltar);
+
+        colunaFormulario.getChildren().addAll(
+                titulo,
+                labelIdSelecionada,
                 new Label("Nome:"), campoNome,
                 new Label("Descrição:"), campoDescricao,
                 new Label("Classificação:"), campoClassificacao,
-                botaoSalvar,
-                botaoVoltar);
+                painelBotoes);
 
-        this.add(colunaCadastro, 0, 0);
+        this.add(colunaFormulario, 0, 0);
     }
 
     private void construirTabelaConsulta() {
         VBox colunaTabela = new VBox(10);
         colunaTabela.setAlignment(Pos.TOP_LEFT);
 
-        Label tituloTabela = new Label("Consulta de categorias");
+        Label tituloTabela = new Label("Categorias cadastradas");
         tabelaCategorias = new TableView<>();
         tabelaData = FXCollections.observableArrayList();
 
@@ -98,56 +110,30 @@ public class CategoriaView extends GridPane {
         this.add(colunaTabela, 1, 0);
     }
 
-    private void construirPainelEdicao() {
-        VBox colunaEdicao = new VBox(10);
-        colunaEdicao.setAlignment(Pos.TOP_LEFT);
-
-        Label tituloEdicao = new Label("Seleção para atualizar / excluir");
-        labelIdSelecionada = new Label("ID selecionado: nenhum");
-        campoNomeSelecionado = new TextField();
-        campoDescricaoSelecionada = new TextField();
-        campoClassificacaoSelecionada = new TextField();
-        botaoAtualizar = new Button("Atualizar");
-        botaoExcluir = new Button("Excluir");
-
-        colunaEdicao.getChildren().addAll(
-                tituloEdicao,
-                labelIdSelecionada,
-                new Label("Nome:"), campoNomeSelecionado,
-                new Label("Descrição:"), campoDescricaoSelecionada,
-                new Label("Classificação:"), campoClassificacaoSelecionada,
-                botaoAtualizar,
-                botaoExcluir);
-
-        this.add(colunaEdicao, 2, 0);
-    }
-
-    public String getNomeDigitado() {
+    public String getNome() {
         return campoNome.getText();
     }
 
-    public String getDescricaoDigitada() {
+    public String getDescricao() {
         return campoDescricao.getText();
     }
 
-    public String getClassificacaoDigitada() {
+    public String getClassificacao() {
         return campoClassificacao.getText();
     }
 
-    public String getNomeSelecionado() {
-        return campoNomeSelecionado.getText();
-    }
-
-    public String getDescricaoSelecionada() {
-        return campoDescricaoSelecionada.getText();
-    }
-
-    public String getClassificacaoSelecionada() {
-        return campoClassificacaoSelecionada.getText();
-    }
-
     public void atualizarTabela(List<Categoria> categorias) {
-        tabelaData.setAll(categorias);
+        try {
+            if (categorias == null) {
+                System.err.println("Erro: Lista de categorias é nula.");
+                tabelaData.clear();
+                return;
+            }
+            tabelaData.setAll(categorias);
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar tabela: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public TableView<Categoria> getTabelaCategorias() {
@@ -158,41 +144,59 @@ public class CategoriaView extends GridPane {
         return botaoSalvar;
     }
 
-    public Button getBotaoAtualizar() {
-        return botaoAtualizar;
-    }
-
     public Button getBotaoExcluir() {
         return botaoExcluir;
+    }
+
+    public Button getBotaoLimpar() {
+        return botaoLimpar;
     }
 
     public Button getBotaoVoltar() {
         return botaoVoltar;
     }
 
-    public void limparCamposCadastro() {
+    public void limparCampos() {
         campoNome.clear();
         campoDescricao.clear();
         campoClassificacao.clear();
     }
 
-    public void limparCamposSelecao() {
-        labelIdSelecionada.setText("ID selecionado: nenhum");
-        campoNomeSelecionado.clear();
-        campoDescricaoSelecionada.clear();
-        campoClassificacaoSelecionada.clear();
-        tabelaCategorias.getSelectionModel().clearSelection();
+    public void preencherCampos(Categoria categoria) {
+        try {
+            if (categoria == null) {
+                labelIdSelecionada.setText("ID: nenhum selecionado");
+                limparCampos();
+                botaoExcluir.setDisable(true);
+                return;
+            }
+
+            // Validação de categoria inválida
+            if (categoria.getNome() == null || categoria.getId() < 1) {
+                System.err.println("Aviso: Categoria inválida.");
+                limparCampos();
+                return;
+            }
+
+            labelIdSelecionada.setText("ID: " + categoria.getId());
+            campoNome.setText(categoria.getNome() != null ? categoria.getNome() : "");
+            campoDescricao.setText(categoria.getDescricao() != null ? categoria.getDescricao() : "");
+            campoClassificacao.setText(categoria.getClassificacao() != null ? categoria.getClassificacao() : "");
+            botaoExcluir.setDisable(false);
+
+        } catch (Exception e) {
+            System.err.println("Erro ao preencher campos: " + e.getMessage());
+            e.printStackTrace();
+            limparCampos();
+        }
     }
 
-    public void preencherCamposSelecao(Categoria categoria) {
-        if (categoria == null) {
-            limparCamposSelecao();
-            return;
-        }
+    public Categoria getCategoriaSelecionada() {
+        return tabelaCategorias.getSelectionModel().getSelectedItem();
+    }
 
-        labelIdSelecionada.setText("ID selecionado: " + categoria.getId());
-        campoNomeSelecionado.setText(categoria.getNome());
-        campoDescricaoSelecionada.setText(categoria.getDescricao());
-        campoClassificacaoSelecionada.setText(categoria.getClassificacao());
+    public void limparSelecao() {
+        tabelaCategorias.getSelectionModel().clearSelection();
+        preencherCampos(null);
     }
 }
