@@ -10,16 +10,23 @@ public class MenuController {
     private Stage primaryStage;
     private Scene sceneCategoria;
     private Scene sceneEvento;
+    private Scene sceneParticipante;
+    private Scene sceneOrganizador;
     private EventoController eventoController;
 
-    public MenuController(MenuView view, Stage primaryStage, Scene sceneCategoria, Scene sceneEvento) {
+    public MenuController(MenuView view, Stage primaryStage, Scene sceneCategoria, Scene sceneEvento,
+            Scene sceneParticipante, Scene sceneOrganizador) {
         this.view = view;
         this.primaryStage = primaryStage;
         this.sceneCategoria = sceneCategoria;
         this.sceneEvento = sceneEvento;
+        this.sceneParticipante = sceneParticipante;
+        this.sceneOrganizador = sceneOrganizador;
 
         this.view.getBotaoCategoria().setOnAction(event -> irParaCategoria());
         this.view.getBotaoEvento().setOnAction(event -> irParaEvento());
+        this.view.getBotaoParticipante().setOnAction(event -> irParaParticipante());
+        this.view.getBotaoOrganizador().setOnAction(event -> irParaOrganizador());
     }
 
     public void setEventoController(EventoController eventoController) {
@@ -36,5 +43,13 @@ public class MenuController {
             eventoController.recarregarCategorias();
         }
         primaryStage.setScene(sceneEvento);
+    }
+
+    private void irParaParticipante() {
+        primaryStage.setScene(sceneParticipante);
+    }
+
+    private void irParaOrganizador() {
+        primaryStage.setScene(sceneOrganizador);
     }
 }
