@@ -11,6 +11,8 @@ public class MenuView extends GridPane {
     private Button botaoEvento;
     private Button botaoParticipante;
     private Button botaoOrganizador;
+    private Button botaoSuporte;
+    private Button botaoChamadoSuporte;
 
     public MenuView(){
         this.setAlignment(Pos.CENTER);
@@ -22,11 +24,15 @@ public class MenuView extends GridPane {
         botaoEvento = new Button("Gestão de eventos");
         botaoParticipante = new Button("Participantes");
         botaoOrganizador = new Button("Organizadores");
+        botaoSuporte = new Button("Suporte");
+        botaoChamadoSuporte = new Button("Chamados de suporte");
 
         this.add(botaoCategoria, 0, 0);
         this.add(botaoEvento, 0, 1);
         this.add(botaoParticipante, 0, 2);
         this.add(botaoOrganizador, 0, 3);
+        this.add(botaoSuporte, 0, 4);
+        this.add(botaoChamadoSuporte, 0, 5);
     }
 
     public Button getBotaoCategoria() {
@@ -43,5 +49,13 @@ public class MenuView extends GridPane {
 
     public Button getBotaoOrganizador() {
         return botaoOrganizador;
+    }
+
+    public Button getBotaoSuporte() {
+        return botaoSuporte;
+    }
+
+    public Button getBotaoChamadoSuporte() {
+        return botaoChamadoSuporte;
     }
 }

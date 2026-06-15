@@ -1,20 +1,25 @@
 import controller.CategoriaController;
+import controller.ChamadoSuporteController;
 import controller.EventoController;
 import controller.MenuController;
 import controller.OrganizadorController;
 import controller.ParticipanteController;
+import controller.SuporteController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.CategoriaView;
+import view.ChamadoSuporteView;
 import view.EventoView;
 import view.MenuView;
 import view.OrganizadorView;
 import view.ParticipanteView;
+import view.SuporteView;
 
 public class Main extends Application {
 
-    Scene sceneMenu, sceneCategoria, sceneEvento, sceneParticipante, sceneOrganizador;
+    Scene sceneMenu, sceneCategoria, sceneEvento, sceneParticipante, sceneOrganizador, sceneSuporte,
+            sceneChamadoSuporte;
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,14 +39,23 @@ public class Main extends Application {
         OrganizadorView viewOrganizador = new OrganizadorView();
         sceneOrganizador = new Scene(viewOrganizador, 1040, 360);
 
+        SuporteView viewSuporte = new SuporteView();
+        sceneSuporte = new Scene(viewSuporte, 1040, 360);
+
+        ChamadoSuporteView viewChamadoSuporte = new ChamadoSuporteView();
+        sceneChamadoSuporte = new Scene(viewChamadoSuporte, 1040, 360);
+
         MenuController menuController = new MenuController(menuView, primaryStage, sceneCategoria, sceneEvento,
-                sceneParticipante, sceneOrganizador);
+                sceneParticipante, sceneOrganizador, sceneSuporte, sceneChamadoSuporte);
         CategoriaController controllerCategoria = new CategoriaController(viewCategoria, primaryStage, sceneMenu);
         EventoController controllerEvento = new EventoController(viewEvento, primaryStage, sceneMenu);
         ParticipanteController controllerParticipante = new ParticipanteController(viewParticipante, primaryStage,
                 sceneMenu);
         OrganizadorController controllerOrganizador = new OrganizadorController(viewOrganizador, primaryStage,
                 sceneMenu);
+        SuporteController controllerSuporte = new SuporteController(viewSuporte, primaryStage, sceneMenu);
+        ChamadoSuporteController controllerChamadoSuporte = new ChamadoSuporteController(viewChamadoSuporte,
+                primaryStage, sceneMenu);
 
         // Configura o MenuController com o EventoController para recarregar categorias
         menuController.setEventoController(controllerEvento);
