@@ -1,12 +1,15 @@
 import controller.CategoriaController;
+import controller.ChamadoSuporteController;
 import controller.EventoController;
 import controller.MenuController;
 import controller.OrganizadorController;
 import controller.ParticipanteController;
+import controller.SuporteController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.CategoriaView;
+import view.ChamadoSuporteView;
 import view.EventoView;
 import view.MenuView;
 import view.OrganizadorView;
@@ -15,10 +18,12 @@ import controller.ArtistaController;
 import controller.IngressoController;
 import view.ArtistaView;
 import view.IngressoView;
+import view.SuporteView;
 
 public class Main extends Application {
 
-    Scene sceneMenu, sceneCategoria, sceneEvento, sceneParticipante, sceneOrganizador, sceneArtista, sceneIngresso;
+    Scene sceneMenu, sceneCategoria, sceneEvento, sceneParticipante, sceneOrganizador, 
+          sceneArtista, sceneIngresso, sceneSuporte, sceneChamadoSuporte;
 
     @Override
     public void start(Stage primaryStage) {
@@ -44,8 +49,14 @@ public class Main extends Application {
         IngressoView viewIngresso = new IngressoView();
         sceneIngresso = new Scene(viewIngresso, 1040, 360);  
 
+        SuporteView viewSuporte = new SuporteView();
+        sceneSuporte = new Scene(viewSuporte, 1040, 360);
+
+        ChamadoSuporteView viewChamadoSuporte = new ChamadoSuporteView();
+        sceneChamadoSuporte = new Scene(viewChamadoSuporte, 1040, 360);
+
         MenuController menuController = new MenuController(menuView, primaryStage, sceneCategoria, sceneEvento,
-                sceneParticipante, sceneOrganizador, sceneArtista, sceneIngresso);
+                sceneParticipante, sceneOrganizador, sceneArtista, sceneIngresso, sceneSuporte, sceneChamadoSuporte);
 
         CategoriaController controllerCategoria = new CategoriaController(viewCategoria, primaryStage, sceneMenu);
 
@@ -58,6 +69,11 @@ public class Main extends Application {
         ArtistaController controllerArtista = new ArtistaController(viewArtista, primaryStage, sceneMenu);
         
         IngressoController controllerIngresso = new IngressoController(viewIngresso, primaryStage, sceneMenu);
+
+        SuporteController controllerSuporte = new SuporteController(viewSuporte, primaryStage, sceneMenu);
+
+        ChamadoSuporteController controllerChamadoSuporte = new ChamadoSuporteController(viewChamadoSuporte,
+                primaryStage, sceneMenu);
 
         // Configura o MenuController com o EventoController para recarregar categorias
         menuController.setEventoController(controllerEvento);

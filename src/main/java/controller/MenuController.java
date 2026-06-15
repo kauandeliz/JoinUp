@@ -12,12 +12,15 @@ public class MenuController {
     private Scene sceneEvento;
     private Scene sceneParticipante;
     private Scene sceneOrganizador;
+    private Scene sceneSuporte;
+    private Scene sceneChamadoSuporte;
     private EventoController eventoController;
     private Scene sceneArtista;
     private Scene sceneIngresso;
 
     public MenuController(MenuView view, Stage primaryStage, Scene sceneCategoria, Scene sceneEvento,
-            Scene sceneParticipante, Scene sceneOrganizador, Scene sceneArtista, Scene sceneIngresso) {
+            Scene sceneParticipante, Scene sceneOrganizador, Scene sceneArtista, Scene sceneIngresso,
+            Scene sceneSuporte, Scene sceneChamadoSuporte) {
         this.view = view;
         this.primaryStage = primaryStage;
         this.sceneCategoria = sceneCategoria;
@@ -26,6 +29,8 @@ public class MenuController {
         this.sceneOrganizador = sceneOrganizador;
         this.sceneArtista = sceneArtista;
         this.sceneIngresso = sceneIngresso;
+        this.sceneSuporte = sceneSuporte;
+        this.sceneChamadoSuporte = sceneChamadoSuporte;
 
         this.view.getBotaoCategoria().setOnAction(event -> irParaCategoria());
         this.view.getBotaoEvento().setOnAction(event -> irParaEvento());
@@ -33,6 +38,8 @@ public class MenuController {
         this.view.getBotaoOrganizador().setOnAction(event -> irParaOrganizador());
         this.view.getBotaoArtista().setOnAction(event -> irParaArtista());
         this.view.getBotaoIngresso().setOnAction(event -> irParaIngresso());
+        this.view.getBotaoSuporte().setOnAction(event -> irParaSuporte());
+        this.view.getBotaoChamadoSuporte().setOnAction(event -> irParaChamadoSuporte());
     }
 
     public void setEventoController(EventoController eventoController) {
@@ -65,5 +72,13 @@ public class MenuController {
 
     private void irParaIngresso() {
         primaryStage.setScene(sceneIngresso);
+    }
+
+    private void irParaSuporte() {
+        primaryStage.setScene(sceneSuporte);
+    }
+
+    private void irParaChamadoSuporte() {
+        primaryStage.setScene(sceneChamadoSuporte);
     }
 }

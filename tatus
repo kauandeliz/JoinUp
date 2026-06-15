@@ -1,0 +1,11 @@
+* [33maa5a383[m[33m ([m[1;31mupstream/master[m[33m, [m[1;31mupstream/HEAD[m[33m)[m fix: ajustar menu e telas de Suporte/ChamadoSuporte
+* [33m7a523f4[m feat: adiciona suporte e chamado suporte
+* [33m62eefb7[m feat: adicionar views de suporte e chamado de suporte
+* [33mf4cb65a[m feat: adicionar modelos Suporte e ChamadoSuporte
+[31m|[m * [33m167afd9[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Adição dos cruds "Artistas" e "Ingressos"
+[31m|[m[31m/[m  
+* [33m6aa07fe[m feat:  cruds Participante e Organizador
+* [33me9ca698[m feat: tratamento de erros e novo layout
+* [33mb615a5a[m feat: gestão de eventos
+* [33mcf2418f[m feat: gestão de categorias
+* [33m0b12776[m feat: menu principal
