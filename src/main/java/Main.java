@@ -11,10 +11,14 @@ import view.EventoView;
 import view.MenuView;
 import view.OrganizadorView;
 import view.ParticipanteView;
+import controller.ArtistaController;
+import controller.IngressoController;
+import view.ArtistaView;
+import view.IngressoView;
 
 public class Main extends Application {
 
-    Scene sceneMenu, sceneCategoria, sceneEvento, sceneParticipante, sceneOrganizador;
+    Scene sceneMenu, sceneCategoria, sceneEvento, sceneParticipante, sceneOrganizador, sceneArtista, sceneIngresso;
 
     @Override
     public void start(Stage primaryStage) {
@@ -34,14 +38,26 @@ public class Main extends Application {
         OrganizadorView viewOrganizador = new OrganizadorView();
         sceneOrganizador = new Scene(viewOrganizador, 1040, 360);
 
+        ArtistaView viewArtista = new ArtistaView();
+        sceneArtista = new Scene(viewArtista, 1040, 360);
+
+        IngressoView viewIngresso = new IngressoView();
+        sceneIngresso = new Scene(viewIngresso, 1040, 360);  
+
         MenuController menuController = new MenuController(menuView, primaryStage, sceneCategoria, sceneEvento,
-                sceneParticipante, sceneOrganizador);
+                sceneParticipante, sceneOrganizador, sceneArtista, sceneIngresso);
+
         CategoriaController controllerCategoria = new CategoriaController(viewCategoria, primaryStage, sceneMenu);
+
         EventoController controllerEvento = new EventoController(viewEvento, primaryStage, sceneMenu);
-        ParticipanteController controllerParticipante = new ParticipanteController(viewParticipante, primaryStage,
-                sceneMenu);
-        OrganizadorController controllerOrganizador = new OrganizadorController(viewOrganizador, primaryStage,
-                sceneMenu);
+
+        ParticipanteController controllerParticipante = new ParticipanteController(viewParticipante, primaryStage, sceneMenu);
+
+        OrganizadorController controllerOrganizador = new OrganizadorController(viewOrganizador, primaryStage, sceneMenu);
+
+        ArtistaController controllerArtista = new ArtistaController(viewArtista, primaryStage, sceneMenu);
+        
+        IngressoController controllerIngresso = new IngressoController(viewIngresso, primaryStage, sceneMenu);
 
         // Configura o MenuController com o EventoController para recarregar categorias
         menuController.setEventoController(controllerEvento);
